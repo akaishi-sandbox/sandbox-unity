@@ -1,0 +1,7 @@
+namespace Model;
+
+table UserData {
+    coinNum:int;
+}
+
+root_type UserData;
