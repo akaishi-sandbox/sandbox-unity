@@ -1,0 +1,8 @@
+namespace Data;
+
+table User {
+    id:int;
+    name:string;
+}
+
+root_type User;
