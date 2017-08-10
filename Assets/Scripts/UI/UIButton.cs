@@ -6,7 +6,7 @@ namespace UI
     [RequireComponent(typeof(UnityEngine.UI.Button))]
     public class UIButton : MonoBehaviour
     {
-
+        System.Lazy<UnityEngine.UI.Button> buttonLazy => new System.Lazy<UnityEngine.UI.Button>(() => GetComponent<UnityEngine.UI.Button>());
         UnityEngine.UI.Button button => GetComponent<UnityEngine.UI.Button>();
 
 
@@ -18,6 +18,11 @@ namespace UI
             // var path = Path.Combine(Application.persistentDataPath, "user.bin");
             var builder = new FlatBuffers.FlatBufferBuilder(1);
             var data = Data.User.CreateUser(builder);
+            buttonLazy.Value.onClick.AsObservable()
+            .Select(_ => 1)
+                .Scan(0, (element, acc) => element + acc)
+                .Subscribe(count => Debug.Log("countlazy:" + count))
+                .AddTo(gameObject);
 
             button.onClick.AsObservable()
                 .Select(_ => 1)
