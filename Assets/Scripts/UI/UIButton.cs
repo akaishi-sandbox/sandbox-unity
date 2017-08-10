@@ -9,6 +9,7 @@ namespace UI
         System.Lazy<UnityEngine.UI.Button> buttonLazy => new System.Lazy<UnityEngine.UI.Button>(() => GetComponent<UnityEngine.UI.Button>());
         UnityEngine.UI.Button button => GetComponent<UnityEngine.UI.Button>();
 
+        string savePath => $"{Application.persistentDataPath}/data.bin";
 
         /// <summary>
         /// Awake is called when the script instance is being loaded.
@@ -17,7 +18,11 @@ namespace UI
         {
             // var path = Path.Combine(Application.persistentDataPath, "user.bin");
             var builder = new FlatBuffers.FlatBufferBuilder(1);
-            var data = Data.User.CreateUser(builder);
+            var data = Data.User.CreateUser(builder, 1, builder.CreateString("abcd"));
+            Data.User.FinishUserBuffer(builder, data);
+
+            System.IO.File.WriteAllBytes(savePath, builder.SizedByteArray());
+
             buttonLazy.Value.onClick.AsObservable()
             .Select(_ => 1)
                 .Scan(0, (element, acc) => element + acc)
