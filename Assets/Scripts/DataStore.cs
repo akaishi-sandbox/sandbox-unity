@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class DataStore
 {
+    static readonly Lazy<DataStore> instance = new Lazy<DataStore>(() => new DataStore());
+
+    public static DataStore Instance => instance.Value;
+
     string savePath => $"{Application.persistentDataPath}/data.bin";
 
     readonly Dictionary<Type, Lazy<FlatBuffers.Table>> data = new Dictionary<Type, Lazy<FlatBuffers.Table>>();

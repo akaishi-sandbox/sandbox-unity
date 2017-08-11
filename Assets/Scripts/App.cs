@@ -11,13 +11,16 @@ public class App : MonoBehaviour
     /// </summary>
     void Awake()
     {
-        ServiceLocator.Instance.Register<DataStore>();
+        DataStore.Instance.Register<Data.User>();
     }
 
     // Use this for initialization
     void Start()
     {
 
+
+        var name = DataStore.Instance.Get<Data.User>().Name;
+        Debug.Log($"name => {name}");
         aaa();
 
     }
