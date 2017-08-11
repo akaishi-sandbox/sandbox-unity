@@ -33,7 +33,7 @@ public class App : MonoBehaviour
     {
         if (pauseStatus)
         {
-            ServiceLocator.Instance.Get<DataStore>().Save();
+            DataStore.Instance.Save();
         }
     }
 
