@@ -17,9 +17,21 @@ public class App : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        ServiceLocator.Instance.Get<DataStore>().Ass();
+
         aaa();
 
+    }
+
+    /// <summary>
+    /// Callback sent to all game objects when the player pauses.
+    /// </summary>
+    /// <param name="pauseStatus">The pause state of the application.</param>
+    void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus)
+        {
+            ServiceLocator.Instance.Get<DataStore>().Save();
+        }
     }
 
     async Task<string> aaa()

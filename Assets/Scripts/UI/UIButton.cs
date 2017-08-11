@@ -17,11 +17,7 @@ namespace UI
         void Awake()
         {
             // var path = Path.Combine(Application.persistentDataPath, "user.bin");
-            var builder = new FlatBuffers.FlatBufferBuilder(1);
-            var data = Data.User.CreateUser(builder, 1, builder.CreateString("abcd"));
-            Data.User.FinishUserBuffer(builder, data);
 
-            System.IO.File.WriteAllBytes(savePath, builder.SizedByteArray());
 
             buttonLazy.Value.onClick.AsObservable()
             .Select(_ => 1)
