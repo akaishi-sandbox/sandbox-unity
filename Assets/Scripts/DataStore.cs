@@ -25,6 +25,12 @@ public class DataStore
 
     }
 
+    void init<T>() where T : FlatBuffers.Table
+    {
+        var builder = new FlatBuffers.FlatBufferBuilder(1);
+        var user = Data.User.CreateUser(builder, 1, builder.CreateString("abcd"));
+    }
+
     public T Get<T>() where T : FlatBuffers.Table
     {
         Lazy<FlatBuffers.Table> store;
