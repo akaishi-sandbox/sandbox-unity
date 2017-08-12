@@ -15,13 +15,17 @@ public class App : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start()
+    async void Start()
     {
 
 
         var name = DataStore.Instance.Get<Data.User>().Name;
         Debug.Log($"name => {name}");
-        aaa();
+        await aaa();
+
+        var www = await HttpManager.Instance.WWW();
+
+        Debug.Log($"www: {www.text}");
 
     }
 
