@@ -3,11 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataStore
+public class DataStore : Singleton<DataStore>
 {
-    static readonly Lazy<DataStore> instance = new Lazy<DataStore>(() => new DataStore());
-
-    public static DataStore Instance => instance.Value;
 
     string savePath => $"{Application.persistentDataPath}/data.bin";
 

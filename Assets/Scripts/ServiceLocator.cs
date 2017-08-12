@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public class ServiceLocator
+public class ServiceLocator : Singleton<ServiceLocator>
 {
-
-    static readonly Lazy<ServiceLocator> instance = new Lazy<ServiceLocator>(() => new ServiceLocator());
-
-    public static ServiceLocator Instance => instance.Value;
 
     readonly Dictionary<Type, Lazy<object>> registeredServices = new Dictionary<Type, Lazy<object>>();
 
