@@ -12,11 +12,28 @@ using System.Net.Sockets;
 public class HttpManager : Singleton<HttpManager>
 {
 
-    public async Task<WWW> WWW()
+    public async Task<WWW> WWW(string url)
     {
-        var www = await new WWW("https://redstone.biz");
+        var www = await new WWW(url);
 
         return www;
+
+    }
+
+    public async Task<WWW> ObWWW(string url)
+    {
+        try
+        {
+            var www = await ObservableWWW.GetWWW(url);
+
+            return www;
+        }
+        catch (WWWErrorException)
+        {
+
+        }
+
+        return null;
 
     }
 

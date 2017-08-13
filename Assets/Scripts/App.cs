@@ -23,9 +23,16 @@ public class App : MonoBehaviour
         Debug.Log($"name => {name}");
         await aaa();
 
-        var www = await HttpManager.Instance.WWW();
+        var www = await HttpManager.Instance.WWW("https://redstone.biz");
+
+        var ob = await HttpManager.Instance.ObWWW("https://redstone.biz");
 
         Debug.Log($"www: {www.text}");
+        if (ob != null)
+        {
+            Debug.Log($"obwww: {ob.text}");
+        }
+
 
     }
 
