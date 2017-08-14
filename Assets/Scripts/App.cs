@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class App : MonoBehaviour
 {
 
@@ -12,6 +13,39 @@ public class App : MonoBehaviour
     void Awake()
     {
         DataStore.Instance.Register<Data.User>();
+        DontDestroyOnLoad(this);    // エントリーポイントとして生き残るようにする
+    }
+
+    [UnityEditor.MenuItem("Debug/App")]
+    static void DoHideFlagChange()
+    {
+        foreach (GameObject obj in FindObjectsOfType(typeof(GameObject)))
+        {
+            if (obj.GetComponent<App>() != null)
+            {
+                if (obj.hideFlags == HideFlags.None)
+                {
+                    Debug.Log("hide hir");
+                    obj.hideFlags = HideFlags.HideInHierarchy;
+                }
+                else
+                {
+                    obj.hideFlags = HideFlags.None;
+                }
+                UnityEditor.EditorApplication.DirtyHierarchyWindowSorting();
+            }
+
+        }
+    }
+
+
+    /// <summary>
+    /// This function is called when the object becomes enabled and active.
+    /// </summary>
+    void OnEnable()
+    {
+        Debug.Log("enable");
+
     }
 
     /// <summary>
