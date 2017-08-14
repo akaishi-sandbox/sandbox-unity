@@ -33,6 +33,7 @@ public class App : MonoBehaviour
     /// </summary>
     void Awake()
     {
+        Debug.Log("app awake");
         if (instance == null)
         {
             instance = this;
