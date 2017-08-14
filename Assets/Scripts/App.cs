@@ -14,10 +14,19 @@ public class App : MonoBehaviour
         DataStore.Instance.Register<Data.User>();
     }
 
+    /// <summary>
+    /// This function is called when the MonoBehaviour will be destroyed.
+    /// </summary>
+    void OnDestroy()
+    {
+        Debug.Log("destroy!!");
+    }
+
     // Use this for initialization
     async void Start()
     {
 
+        DataStore.Instance.Test = "sample";
 
         var name = DataStore.Instance.Get<Data.User>().Name;
         Debug.Log($"name => {name}");

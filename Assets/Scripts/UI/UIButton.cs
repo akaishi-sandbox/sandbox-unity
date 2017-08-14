@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UniRx;
 
 namespace UI
@@ -28,7 +29,14 @@ namespace UI
             button.onClick.AsObservable()
                 .Select(_ => 1)
                 .Scan(0, (element, acc) => element + acc)
-                .Subscribe(count => Debug.Log("count:" + count))
+                .Subscribe(count =>
+                {
+                    Debug.Log("count:" + count);
+                    if (count == 2)
+                    {
+                        SceneManager.LoadScene("sample2");
+                    }
+                })
                 .AddTo(gameObject);
         }
 

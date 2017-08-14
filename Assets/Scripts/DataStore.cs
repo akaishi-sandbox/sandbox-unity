@@ -22,6 +22,8 @@ public class DataStore : Singleton<DataStore>
 
     }
 
+    public string Test { get; set; }
+
     void init<T>() where T : FlatBuffers.Table
     {
         var builder = new FlatBuffers.FlatBufferBuilder(1);
