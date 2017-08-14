@@ -33,9 +33,15 @@ public class App : MonoBehaviour
     /// </summary>
     void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
         if (instance != this)
         {
+            Debug.Log("awake destroy!!");
             Destroy(this);
+            return;
         }
         initialized = true;
         DontDestroyOnLoad(this);    // エントリーポイントとして生き残るようにする
