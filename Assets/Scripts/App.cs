@@ -12,8 +12,8 @@ public class App : MonoBehaviour
     /// </summary>
     void Awake()
     {
-        DataStore.Instance.Register<Data.User>();
         DontDestroyOnLoad(this);    // エントリーポイントとして生き残るようにする
+        DataStore.Instance.Register<Data.User>();
     }
 
     [UnityEditor.MenuItem("Debug/App")]
