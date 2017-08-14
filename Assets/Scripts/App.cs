@@ -6,15 +6,40 @@ using UnityEngine;
 public class App : MonoBehaviour
 {
 
+    static bool initialized;
+    static App instance;
+
+    [RuntimeInitializeOnLoadMethod]
+    static void EntryPoint()
+    {
+        Debug.Log("EntryPoint");
+        if (!initialized)
+        {
+            instance = GameObject.FindObjectOfType<App>();
+            if (instance == null)
+            {
+                new GameObject("App").AddComponent<App>();
+            }
+            else
+            {
+                instance.Awake();
+            }
+        }
+
+    }
+
     /// <summary>
     /// Awake is called when the script instance is being loaded.
     /// </summary>
     void Awake()
     {
-        if (Application.isPlaying)
+        if (instance != this)
         {
-            DontDestroyOnLoad(this);    // エントリーポイントとして生き残るようにする
+            Destroy(this);
         }
+        initialized = true;
+        DontDestroyOnLoad(this);    // エントリーポイントとして生き残るようにする
+
 
         DataStore.Instance.Register<Data.User>();
     }
