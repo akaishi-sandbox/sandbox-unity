@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class App : MonoBehaviour
 {
 
@@ -12,31 +11,33 @@ public class App : MonoBehaviour
     /// </summary>
     void Awake()
     {
-        DontDestroyOnLoad(this);    // エントリーポイントとして生き残るようにする
+        if (Application.isPlaying)
+        {
+            DontDestroyOnLoad(this);    // エントリーポイントとして生き残るようにする
+        }
+
         DataStore.Instance.Register<Data.User>();
     }
 
     [UnityEditor.MenuItem("Debug/App")]
     static void DoHideFlagChange()
     {
-        foreach (GameObject obj in FindObjectsOfType(typeof(GameObject)))
+        foreach (App app in GameObject.FindObjectsOfType(typeof(App)))
         {
-            if (obj.GetComponent<App>() != null)
+            if (app.gameObject.hideFlags == HideFlags.None)
             {
-                if (obj.hideFlags == HideFlags.None)
-                {
-                    Debug.Log("hide hir");
-                    obj.hideFlags = HideFlags.HideInHierarchy;
-                }
-                else
-                {
-                    obj.hideFlags = HideFlags.None;
-                }
-                UnityEditor.EditorApplication.DirtyHierarchyWindowSorting();
+                Debug.Log("hide hir");
+                app.gameObject.hideFlags = HideFlags.HideInHierarchy;
             }
-
+            else
+            {
+                app.gameObject.hideFlags = HideFlags.None;
+            }
+            UnityEditor.EditorApplication.DirtyHierarchyWindowSorting();
         }
+
     }
+
 
 
     /// <summary>
