@@ -20,6 +20,11 @@ public class UISlider : BaseUI<UnityEngine.UI.Slider>
         .Subscribe(v =>
         {
             Debug.Log($"slider value:{v}");
+            if (v > 0.8)
+            {
+                SceneManager.LoadScene("sample3");
+                Destroy(gameObject);
+            }
         })
         .AddTo(gameObject);
     }
