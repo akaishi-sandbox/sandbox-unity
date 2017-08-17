@@ -16,9 +16,11 @@ public class NewBehaviourScript1 : MonoBehaviour
             Vector3.one,
         };
 
-        Save("todo", this);
+        Save("todo", vec);
 
-        var obj = Load<NewBehaviourScript1>("todo");
+        var vec2 = Load<List<Vector3>>("todo");
+
+        Debug.Log(vec2.Count);
     }
 
     // Update is called once per frame
@@ -32,22 +34,27 @@ public class NewBehaviourScript1 : MonoBehaviour
         if (false == PlayerPrefs.HasKey(key)) return default(T);
         var s = PlayerPrefs.GetString(key);
         if (null == s) return default(T);
-#if UNITY_IOS
-            System.Environment.SetEnvironmentVariable("MONO_REFLECTION_SERIALIZER", "yes");
-#endif
-        var b = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-        var mem = new System.IO.MemoryStream(System.Convert.FromBase64String(s));
-        return (T)b.Deserialize(mem);
+
+        return JsonUtility.FromJson<T>(s);
+        // #if UNITY_IOS
+        //             System.Environment.SetEnvironmentVariable("MONO_REFLECTION_SERIALIZER", "yes");
+        // #endif
+        //         var b = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+        //         var mem = new System.IO.MemoryStream(System.Convert.FromBase64String(s));
+        //         return (T)b.Deserialize(mem);
     }
     void Save<T>(string key, T obj)
     {
         if (null == obj) return;
-        var mem = new System.IO.MemoryStream();
-#if UNITY_IOS
-            System.Environment.SetEnvironmentVariable("MONO_REFLECTION_SERIALIZER", "yes");
-#endif
-        var b = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-        b.Serialize(mem, obj);
-        PlayerPrefs.SetString(key, System.Convert.ToBase64String(mem.ToArray()));
+        //         var mem = new System.IO.MemoryStream();
+        // #if UNITY_IOS
+        //             System.Environment.SetEnvironmentVariable("MONO_REFLECTION_SERIALIZER", "yes");
+        // #endif
+        //         var b = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+        //         b.Serialize(mem, obj);
+        var s = JsonUtility.ToJson(obj);
+        Debug.Log($"json:{s}");
+        PlayerPrefs.SetString(key, s);
+        // System.Convert.ToBase64String(mem.ToArray()));
     }
 }
