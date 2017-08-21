@@ -13,7 +13,7 @@ public class UISlider : BaseUI<UnityEngine.UI.Slider>
     /// </summary>
     void Awake()
     {
-        Parts.Value.onValueChanged.AsObservable()
+        ui.Value.onValueChanged.AsObservable()
         .Buffer(3)
         // .Where(v => System.Math.Abs(v.First() - v.Last()) > 0.01)
         .Select(v => v.Last())

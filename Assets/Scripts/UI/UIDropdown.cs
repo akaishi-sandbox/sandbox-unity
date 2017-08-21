@@ -11,7 +11,7 @@ public class UIDropdown : BaseUI<UnityEngine.UI.Dropdown>
     // Use this for initialization
     void Start()
     {
-        Parts.Value.onValueChanged.AsObservable()
+        ui.Value.onValueChanged.AsObservable()
         .Subscribe(drop =>
         {
             Debug.Log($"drop change:{drop}!!");

@@ -17,7 +17,7 @@ public class UIButton : BaseUI<UnityEngine.UI.Button>
         // var path = Path.Combine(Application.persistentDataPath, "user.bin");
 
 
-        Parts.Value.onClick.AsObservable()
+        ui.Value.onClick.AsObservable()
         .Select(_ => 1)
             .Scan(0, (element, acc) => element + acc)
             .Subscribe(count =>

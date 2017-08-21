@@ -4,17 +4,22 @@ using UnityEngine;
 
 using UniRx;
 
-[RequireComponent(typeof(UnityEngine.UI.ScrollRect))]
-public class UIScrollView : BaseUI<UnityEngine.UI.ScrollRect>
+
+[RequireComponent(typeof(UnityEngine.UI.Toggle))]
+public class UIToggle : BaseUI<UnityEngine.UI.Toggle>
 {
 
     // Use this for initialization
     void Start()
     {
         ui.Value.onValueChanged.AsObservable()
-        .Subscribe(abcdef =>
+        .Subscribe(x =>
         {
-            Debug.Log($"scroll?? {abcdef}");
+            Debug.Log($"toggle:{x}");
+            if (x)
+            {
+
+            }
         })
         .AddTo(gameObject);
     }
