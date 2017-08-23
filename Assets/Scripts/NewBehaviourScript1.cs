@@ -7,6 +7,10 @@ using UnityEngine;
 public class NewBehaviourScript1 : MonoBehaviour
 {
 
+    [SerializeField] UnityEngine.UI.Button button;
+
+    public System.Action OnAction { get; set; }
+
     List<Vector3> vec;
     // Use this for initialization
     void Start()
@@ -21,6 +25,19 @@ public class NewBehaviourScript1 : MonoBehaviour
         var vec2 = Load<List<Vector3>>("todo");
 
         Debug.Log(vec2.Count);
+
+        OnAction = () =>
+        {
+            Debug.Log("onaction call");
+        };
+
+        button?.onClick.AddListener(() =>   // c# 4?
+        {
+            Debug.Log("onaction AddListener");
+            OnAction?.Invoke(); // c# 4?
+        });
+
+
     }
 
     // Update is called once per frame
