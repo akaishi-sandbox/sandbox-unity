@@ -97,7 +97,8 @@ public class App : MonoBehaviour
 
         var name = DataStore.Instance.Get<Data.User>().Name;
         Debug.Log($"name => {name}");
-        await aaa();
+        dynamic s = await aaa();
+        Debug.Log($"s => {s}");
 
         var www = await HttpManager.Instance.WWW("https://redstone.biz");
 
