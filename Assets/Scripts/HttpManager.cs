@@ -39,11 +39,11 @@ public class HttpManager : Singleton<HttpManager>
 
     void aaaa()
     {
-        var client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        var endpoint = new IPEndPoint(0, 0);
-        client.BeginConnect(endpoint, (res) =>
-        {
-            // callback
-        }, null);
+        // var client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        // var endpoint = new IPEndPoint(0, 0);
+        // client.BeginConnect(endpoint, (res) =>
+        // {
+        //     // callback
+        // }, null);
     }
 }
