@@ -21,7 +21,7 @@ public class UnitTest
         Assert.AreEqual(c, 1f, $"c0={c}");
 
         c = Mathf.Cos(Mathf.PI);
-        Assert.AreEqual(c, 0f, $"c1={c}");   // 180?
+        Assert.AreEqual(c, -1f, $"c1={c}");   // 180?
 
         c = Mathf.Cos(2 * Mathf.PI);
         Assert.AreEqual(c, 1f, $"c2={c}");   // 360?
