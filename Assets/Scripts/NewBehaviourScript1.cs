@@ -15,6 +15,12 @@ public class NewBehaviourScript1 : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        // var sprite = Resources.Load<Sprite>("Textures/apple");
+        var sprite = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Textures/apple.png", typeof(Sprite)) as Sprite;
+        if (sprite == null)
+        {
+            Debug.LogError("sprite null");
+        }
         vec = new List<Vector3>() {
             Vector3.zero,
             Vector3.one,

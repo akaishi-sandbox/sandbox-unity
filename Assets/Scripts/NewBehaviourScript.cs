@@ -9,6 +9,13 @@ public class NewBehaviourScript : MonoBehaviour
     void Start()
     {
         Debug.Log($"sample2:{DataStore.Instance.Test}");
+
+        var list = new List<string> {
+            "test1",
+            "test2",
+        };
+
+        list.RemoveAt(1);
     }
 
     // Update is called once per frame
