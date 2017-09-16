@@ -5,12 +5,37 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using NUnit.Framework;
-
+using System.Linq;
 
 [TestFixture]
 [Category("Unit Test")]
 public class UnitTest
 {
+    struct TestDic
+    {
+        public string Code { get; set; }
+        public int Count { get; set; }
+    }
+
+    [Test]
+    [Category("DictionayTest")]
+    public void DictionaryTest()
+    {
+
+        var dic = new Dictionary<string, TestDic>
+        {
+            {"aaa", new TestDic{Code = "aaaCode", Count = 10}},
+            {"bbb", new TestDic{Code = "bbbCode", Count = 20}},
+        };
+
+        Assert.AreEqual(dic["aaa"].Count, 10, "10?");
+
+        var aaa = dic["aaa"];
+        aaa.Count = 20;
+        // dic["aaa"] = aaa;
+
+        Assert.AreEqual(dic["aaa"].Count, 20, "20?");
+    }
 
     [Test]
     [Category("MathfTest")]

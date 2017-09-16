@@ -6,7 +6,6 @@ using UnityEditor;
 using UnityEditorInternal;
 
 
-
 [Serializable]
 public struct Item
 {
@@ -56,6 +55,11 @@ public class AdminWindow : EditorWindow
     /// </summary>
     void OnGUI()
     {
+
         reorderableList.DoLayoutList();
+
+        if (GUILayout.Button("xls test"))
+        {
+        }
     }
 }
