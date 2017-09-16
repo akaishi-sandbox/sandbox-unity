@@ -22,12 +22,12 @@ public class SheetTest
     static string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
     static string ApplicationName = "Google Sheets API .NET Quickstart";
 
-    static void Debug()
+    public static void Debug()
     {
         UserCredential credential;
 
         using (var stream =
-            new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
+            new FileStream("client_secret_848620337278-gpm2leidd6st3es22dhu58p3l8s1cf4l.apps.googleusercontent.com.json", FileMode.Open, FileAccess.Read))
         {
             string credPath = System.Environment.GetFolderPath(
                 System.Environment.SpecialFolder.Personal);
@@ -50,8 +50,8 @@ public class SheetTest
         });
 
         // Define request parameters.
-        String spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
-        String range = "Class Data!A2:E";
+        String spreadsheetId = "12q5pVQxUPzwbFbv6t25kNAVn-jlW4nWI_hdpKCYAEUs";
+        String range = "主人公（女性）!A2:E";
         SpreadsheetsResource.ValuesResource.GetRequest request =
                 service.Spreadsheets.Values.Get(spreadsheetId, range);
 
