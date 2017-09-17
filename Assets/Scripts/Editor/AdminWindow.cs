@@ -60,7 +60,7 @@ public class AdminWindow : EditorWindow
 
         if (GUILayout.Button("xls test"))
         {
-            SheetTest.Debug();
+            SheetTest.Sheets();
         }
     }
 }

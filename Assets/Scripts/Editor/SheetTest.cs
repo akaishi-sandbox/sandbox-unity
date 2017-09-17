@@ -11,6 +11,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Google.Apis.Json;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 /*
 https://developers.google.com/sheets/quickstart/dotnet#step_3_set_up_the_sample
@@ -22,7 +25,7 @@ public class SheetTest
     static string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
     static string ApplicationName = "Google Sheets API .NET Quickstart";
 
-    public static void Debug()
+    public async static void Sheets()
     {
         UserCredential credential;
 
@@ -33,13 +36,25 @@ public class SheetTest
                 System.Environment.SpecialFolder.Personal);
             credPath = Path.Combine(credPath, ".credentials/sheets.googleapis.com-dotnet-quickstart.json");
 
-            credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+            // var serializer = JsonSerializer.Create(new JsonSerializerSettings
+            // {
+            //     NullValueHandling = NullValueHandling.Ignore,
+            //     MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
+            //     ContractResolver = new NewtonsoftJsonContractResolver(),
+            // });
+            // using (var streamReader = new StreamReader(stream))
+            // {
+            //     serializer.Deserialize(streamReader, typeof(GoogleClientSecrets));
+            // }
+
+
+            credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                 GoogleClientSecrets.Load(stream).Secrets,
                 Scopes,
                 "user",
                 CancellationToken.None,
-                new FileDataStore(credPath, true)).Result;
-            Console.WriteLine("Credential file saved to: " + credPath);
+                new FileDataStore(credPath, true)); // .Result;
+            UnityEngine.Debug.Log($"Credential file saved to: {credPath}");
         }
 
         // Create Google Sheets API service.
@@ -61,18 +76,18 @@ public class SheetTest
         IList<IList<Object>> values = response.Values;
         if (values != null && values.Count > 0)
         {
-            Console.WriteLine("Name, Major");
+            UnityEngine.Debug.Log("Name, Major");
             foreach (var row in values)
             {
                 // Print columns A and E, which correspond to indices 0 and 4.
-                Console.WriteLine("{0}, {1}", row[0], row[4]);
+                UnityEngine.Debug.Log($"{row[0]}, {row[4]}");
             }
         }
         else
         {
-            Console.WriteLine("No data found.");
+            UnityEngine.Debug.Log("No data found.");
         }
-        Console.Read();
+
 
 
     }
