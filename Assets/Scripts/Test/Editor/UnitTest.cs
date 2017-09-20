@@ -18,6 +18,28 @@ public class UnitTest
     }
 
     [Test]
+    [Category("FlatBuffersTest")]
+    public void FlatBuffersTest()
+    {
+        var fb = new FlatBuffers.FlatBufferBuilder(1);
+        var name = fb.CreateString("abcd");
+        var user = Data.User.CreateUser(fb, 10, name);
+
+        Data.User.FinishUserBuffer(fb, user);
+
+        var data = fb.SizedByteArray();
+        var b = new FlatBuffers.ByteBuffer(data);
+
+        Assert.IsTrue(Data.User.UserBufferHasIdentifier(b));
+
+        var u = Data.User.GetRootAsUser(b);
+
+
+        Assert.IsTrue(u.Id == 10);
+        Assert.IsTrue(u.Name == "abcd");
+    }
+
+    [Test]
     [Category("DictionayTest")]
     public void DictionaryTest()
     {
