@@ -14,7 +14,8 @@ using MessagePack;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    [SerializeField] UnityEngine.UI.Button button;
+    [SerializeField] UnityEngine.UI.Button asyncsum;
+    [SerializeField] UnityEngine.UI.Button stream;
 
     // Use this for initialization
     async void Start()
@@ -27,10 +28,30 @@ public class NewBehaviourScript : MonoBehaviour
 
 
 
-        button?.onClick.AddListener(() =>   // c# 4?
+        asyncsum?.onClick.AddListener(() =>   // c# 4?
         {
             Debug.Log($"grpc sumasync");
             var result = client.SumAsync(100, 200);
+            result.Subscribe(
+                s => Debug.Log($"result:{s}"),
+                err => Debug.LogError($"sumasync err:{err}"));
+
+        });
+
+        stream?.onClick.AddListener(() =>   // c# 4?
+        {
+            Debug.Log($"grpc stream");
+            var fb = new FlatBuffers.FlatBufferBuilder(1);
+            var name = fb.CreateString("abcd");
+            var user = Data.User.CreateUser(fb, 10, name);
+            Data.User.FinishUserBuffer(fb, user);
+
+            var data = fb.SizedByteArray();
+            var b = new FlatBuffers.ByteBuffer(data);
+
+            var u = Data.User.GetRootAsUser(b);
+
+            var result = client.StreamingUser(u);
             result.Subscribe(
                 s => Debug.Log($"result:{s}"),
                 err => Debug.LogError($"sumasync err:{err}"));

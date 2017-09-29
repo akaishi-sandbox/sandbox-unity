@@ -351,6 +351,7 @@ namespace Sandbox.ConsoleServer
         ServerStreamingResult<string> StreamingTwo(int x, int y, int z);
 
         ServerStreamingResult<string> StreamingTwo2(int x, int y, int z = 9999);
+        ServerStreamingResult<string> StreamingUser(Data.User user);
 
         DuplexStreamingResult<int, string> StreamingThree();
     }
@@ -807,6 +808,7 @@ namespace Sandbox.ConsoleServer
         static readonly Method<byte[], byte[]> StreamingOneMethod;
         static readonly Method<byte[], byte[]> StreamingTwoMethod;
         static readonly Method<byte[], byte[]> StreamingTwo2Method;
+        static readonly Method<byte[], byte[]> StreamingUserMethod;
         static readonly Method<byte[], byte[]> StreamingThreeMethod;
 
         static IMyFirstServiceClient()
@@ -816,6 +818,7 @@ namespace Sandbox.ConsoleServer
             StreamingOneMethod = new Method<byte[], byte[]>(MethodType.ClientStreaming, "IMyFirstService", "StreamingOne", MagicOnionMarshallers.ThroughMarshaller, MagicOnionMarshallers.ThroughMarshaller);
             StreamingTwoMethod = new Method<byte[], byte[]>(MethodType.ServerStreaming, "IMyFirstService", "StreamingTwo", MagicOnionMarshallers.ThroughMarshaller, MagicOnionMarshallers.ThroughMarshaller);
             StreamingTwo2Method = new Method<byte[], byte[]>(MethodType.ServerStreaming, "IMyFirstService", "StreamingTwo2", MagicOnionMarshallers.ThroughMarshaller, MagicOnionMarshallers.ThroughMarshaller);
+            StreamingUserMethod = new Method<byte[], byte[]>(MethodType.ServerStreaming, "IMyFirstService", "StreamingUser", MagicOnionMarshallers.ThroughMarshaller, MagicOnionMarshallers.ThroughMarshaller);
             StreamingThreeMethod = new Method<byte[], byte[]>(MethodType.DuplexStreaming, "IMyFirstService", "StreamingThree", MagicOnionMarshallers.ThroughMarshaller, MagicOnionMarshallers.ThroughMarshaller);
         }
 
@@ -874,6 +877,13 @@ namespace Sandbox.ConsoleServer
         {
             var __request = LZ4MessagePackSerializer.Serialize(new DynamicArgumentTuple<int, int, int>(x, y, z), base.resolver);
             var __callResult = callInvoker.AsyncServerStreamingCall(StreamingTwo2Method, base.host, base.option, __request);
+            return new ServerStreamingResult<string>(__callResult, base.resolver);
+        }
+
+        public ServerStreamingResult<string> StreamingUser(Data.User user)
+        {
+            var __request = user.CreateData();
+            var __callResult = callInvoker.AsyncServerStreamingCall(StreamingUserMethod, base.host, base.option, __request);
             return new ServerStreamingResult<string>(__callResult, base.resolver);
         }
 
