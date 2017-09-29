@@ -30,7 +30,6 @@ public class NewBehaviourScript1 : MonoBehaviour
 
         var vec2 = Load<List<Vector3>>("todo");
 
-        Debug.Log(vec2.Count);
 
         OnAction = () =>
         {
@@ -76,7 +75,6 @@ public class NewBehaviourScript1 : MonoBehaviour
         //         var b = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
         //         b.Serialize(mem, obj);
         var s = JsonUtility.ToJson(obj);
-        Debug.Log($"json:{s}");
         PlayerPrefs.SetString(key, s);
         // System.Convert.ToBase64String(mem.ToArray()));
     }
