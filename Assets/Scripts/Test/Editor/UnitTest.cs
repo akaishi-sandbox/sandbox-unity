@@ -9,7 +9,7 @@ using System.Linq;
 
 [TestFixture]
 [Category("Unit Test")]
-public class UnitTest
+internal class UnitTest
 {
     struct TestDic
     {
@@ -19,7 +19,7 @@ public class UnitTest
 
     [Test]
     [Category("FlatBuffersTest")]
-    public void FlatBuffersTest()
+    void FlatBuffersTest()
     {
         var fb = new FlatBuffers.FlatBufferBuilder(1);
         var name = fb.CreateString("abcd");
@@ -41,7 +41,7 @@ public class UnitTest
 
     [Test]
     [Category("DictionayTest")]
-    public void DictionaryTest()
+    void DictionaryTest()
     {
 
         var dic = new Dictionary<string, TestDic>
@@ -61,7 +61,7 @@ public class UnitTest
 
     [Test]
     [Category("MathfTest")]
-    public void MathfTest()
+    void MathfTest()
     {
         var c = Mathf.Cos(0);
 
@@ -76,7 +76,7 @@ public class UnitTest
 
     [Test]
     [Category("LinqTest")]
-    public void LinqTest()
+    void LinqTest()
     {
         var data = new List<string>
         {
@@ -108,7 +108,7 @@ public class UnitTest
 
     [Test]
     [Category("PropertyTest")]
-    public void PropertyTest()
+    void PropertyTest()
     {
         var p = new Property
         {
