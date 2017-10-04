@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using NUnit.Framework;
-using System.Linq;
+using Amazon.S3;
+using Amazon.S3.Model;
 
 [TestFixture]
 [Category("Storage Test")]
@@ -16,7 +17,18 @@ internal class StorageTest
     [Category("IdcfTest")]
     void IdcfTest()
     {
+        using (var s3 = new AmazonS3Client(new Amazon.Runtime.BasicAWSCredentials("accessKey", "secretKey")))
+        {
+            s3.PutObjectAsync(new PutObjectRequest
+            {
+                BucketName = "",
+                Key = "/a.text",
+                FilePath = "a.text",
+            }, (result) =>
+            {
 
+            });
+        }
     }
 
 
