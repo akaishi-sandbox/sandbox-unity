@@ -22,10 +22,10 @@ public class UIButton : BaseUI<UnityEngine.UI.Button>
             .Scan(0, (element, acc) => element + acc)
             .Subscribe(count =>
             {
-                if (count == 2)
-                {
-                    SceneManager.LoadScene("sample2");
-                }
+                // if (count == 2)
+                // {
+                //     SceneManager.LoadScene("sample2");
+                // }
             })
             .AddTo(gameObject);
 

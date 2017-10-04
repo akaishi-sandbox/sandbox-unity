@@ -38,4 +38,13 @@ public static class Menu
             obj.SetActive(!obj.activeSelf);
         }
     }
+
+    /// <summary>
+    /// ゲームオブジェクトのapply
+    /// </summary>
+    [MenuItem("Test/Shotcut/PrefabApply &a")]
+    static void PrefabApply()
+    {
+        EditorApplication.ExecuteMenuItem("GameObject/Apply Changes To Prefab");
+    }
 }

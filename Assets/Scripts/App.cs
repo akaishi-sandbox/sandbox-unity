@@ -48,7 +48,7 @@ public class App : MonoBehaviour
         DontDestroyOnLoad(this);    // エントリーポイントとして生き残るようにする
 
 
-        DataStore.Instance.Register<Data.User>();
+        // DataStore.Instance.Register<Data.User>();
     }
 
     [UnityEditor.MenuItem("Debug/App")]
@@ -93,10 +93,10 @@ public class App : MonoBehaviour
     async void Start()
     {
 
-        DataStore.Instance.Test = "sample";
+        // DataStore.Instance.Test = "sample";
 
-        var name = DataStore.Instance.Get<Data.User>().Name;
-        Debug.Log($"name => {name}");
+        // var name = DataStore.Instance.Get<Data.User>().Name;
+        // Debug.Log($"name => {name}");
         dynamic s = await aaa();
         Debug.Log($"s => {s}");
 
@@ -121,7 +121,7 @@ public class App : MonoBehaviour
     {
         if (pauseStatus)
         {
-            DataStore.Instance.Save();
+            // DataStore.Instance.Save();
         }
     }
 

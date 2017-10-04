@@ -5,12 +5,74 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using NUnit.Framework;
-
+using System.Linq;
 
 [TestFixture]
 [Category("Unit Test")]
 public class UnitTest
 {
+    struct TestDic
+    {
+        public string Code { get; set; }
+        public int Count { get; set; }
+    }
+
+    [Test]
+    [Category("FlatBuffersTest")]
+    public void FlatBuffersTest()
+    {
+        var fb = new FlatBuffers.FlatBufferBuilder(1);
+        var name = fb.CreateString("abcd");
+        var user = Data.User.CreateUser(fb, 10, name);
+
+        Data.User.FinishUserBuffer(fb, user);
+
+        var data = fb.SizedByteArray();
+        var b = new FlatBuffers.ByteBuffer(data);
+
+        Assert.IsTrue(Data.User.UserBufferHasIdentifier(b));
+
+        var u = Data.User.GetRootAsUser(b);
+
+
+        Assert.IsTrue(u.Id == 10);
+        Assert.IsTrue(u.Name == "abcd");
+    }
+
+    [Test]
+    [Category("DictionayTest")]
+    public void DictionaryTest()
+    {
+
+        var dic = new Dictionary<string, TestDic>
+        {
+            {"aaa", new TestDic{Code = "aaaCode", Count = 10}},
+            {"bbb", new TestDic{Code = "bbbCode", Count = 20}},
+        };
+
+        Assert.AreEqual(dic["aaa"].Count, 10, "10?");
+
+        var aaa = dic["aaa"];
+        aaa.Count = 20;
+        // dic["aaa"] = aaa;
+
+        Assert.AreEqual(dic["aaa"].Count, 20, "20?");
+    }
+
+    [Test]
+    [Category("MathfTest")]
+    public void MathfTest()
+    {
+        var c = Mathf.Cos(0);
+
+        Assert.AreEqual(c, 1f, $"c0={c}");
+
+        c = Mathf.Cos(Mathf.PI);
+        Assert.AreEqual(c, -1f, $"c1={c}");   // 180?
+
+        c = Mathf.Cos(2 * Mathf.PI);
+        Assert.AreEqual(c, 1f, $"c2={c}");   // 360?
+    }
 
     [Test]
     [Category("LinqTest")]

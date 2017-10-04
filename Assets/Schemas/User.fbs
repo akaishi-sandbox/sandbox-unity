@@ -1,8 +1,12 @@
 namespace Data;
 
+file_identifier "ABCD";
+
 table User {
     id:int;
     name:string;
 }
 
 root_type User;
+
+
