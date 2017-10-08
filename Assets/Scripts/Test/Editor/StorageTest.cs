@@ -15,18 +15,15 @@ internal class StorageTest
 
     [Test]
     [Category("IdcfTest")]
-    void IdcfTest()
+    async void IdcfTest()
     {
         using (var s3 = new AmazonS3Client(new Amazon.Runtime.BasicAWSCredentials("accessKey", "secretKey")))
         {
-            s3.PutObjectAsync(new PutObjectRequest
+            var result = await s3.PutObjectAsync(new PutObjectRequest
             {
                 BucketName = "",
                 Key = "/a.text",
                 FilePath = "a.text",
-            }, (result) =>
-            {
-
             });
         }
     }
