@@ -9,7 +9,7 @@ public class App : MonoBehaviour
     static bool initialized;
     static App instance;
 
-    [RuntimeInitializeOnLoadMethod]
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void EntryPoint()
     {
         Debug.Log("EntryPoint");
@@ -131,11 +131,5 @@ public class App : MonoBehaviour
 
 
         return "end";
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

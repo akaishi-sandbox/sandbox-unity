@@ -7,14 +7,22 @@ using UnityEngine;
 public class NewBehaviourScript1 : MonoBehaviour
 {
 
-    [SerializeField] UnityEngine.UI.Button button;
+    [SerializeField] UnityEngine.UI.Image image;
 
     public System.Action OnAction { get; set; }
+
+    [UnityEngine.AddressableAssets.AssetReferenceTypeRestriction(typeof(Sprite))]
+    [SerializeField] UnityEngine.AddressableAssets.AssetReference asset;
 
     List<Vector3> vec;
     // Use this for initialization
     void Start()
     {
+        UnityEngine.AddressableAssets.Addressables.Instantiate<Sprite>(asset)
+        .Completed += (tex) =>
+        {
+            image.sprite = tex.Result;
+        };
         // var sprite = Resources.Load<Sprite>("Textures/apple");
         var sprite = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Textures/apple.png", typeof(Sprite)) as Sprite;
         if (sprite == null)
@@ -36,11 +44,7 @@ public class NewBehaviourScript1 : MonoBehaviour
             Debug.Log("onaction call");
         };
 
-        button?.onClick.AddListener(() =>   // c# 4?
-        {
-            Debug.Log("onaction AddListener");
-            OnAction?.Invoke(); // c# 4?
-        });
+
 
 
     }
