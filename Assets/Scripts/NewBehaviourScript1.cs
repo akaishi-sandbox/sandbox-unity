@@ -11,18 +11,18 @@ public class NewBehaviourScript1 : MonoBehaviour
 
     public System.Action OnAction { get; set; }
 
-    [UnityEngine.AddressableAssets.AssetReferenceTypeRestriction(typeof(Sprite))]
     [SerializeField] UnityEngine.AddressableAssets.AssetReference asset;
 
     List<Vector3> vec;
     // Use this for initialization
     void Start()
     {
-        UnityEngine.AddressableAssets.Addressables.Instantiate<Sprite>(asset)
-        .Completed += (tex) =>
-        {
-            image.sprite = tex.Result;
-        };
+        // var sp = UnityEngine.AddressableAssets.Addressables.Instantiate<Sprite>(asset);
+
+        // sp.Completed += (tex) =>
+        // {
+        //     image.sprite = tex.Result;
+        // };
         // var sprite = Resources.Load<Sprite>("Textures/apple");
         var sprite = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Textures/apple.png", typeof(Sprite)) as Sprite;
         if (sprite == null)

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 using UniRx;
+using UniRx.Async;
 
 using System.Net;
 using System.Net.Sockets;
@@ -12,21 +13,14 @@ using System.Net.Sockets;
 public class HttpManager : Singleton<HttpManager>
 {
 
-    public async Task<WWW> WWW(string url)
-    {
-        var www = await new WWW(url);
-
-        return www;
-
-    }
-
-    public async Task<WWW> ObWWW(string url)
+    public async Task<UnityEngine.Networking.UnityWebRequest> WWW(string url)
     {
         try
         {
-            var www = await ObservableWWW.GetWWW(url);
+            var request = UnityEngine.Networking.UnityWebRequest.Get(url);
+            await request.SendWebRequest();
 
-            return www;
+            return request;
         }
         catch (WWWErrorException)
         {

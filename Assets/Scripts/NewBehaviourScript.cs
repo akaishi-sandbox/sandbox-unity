@@ -14,8 +14,8 @@ using MessagePack;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    [SerializeField] UnityEngine.UI.Button asyncsum;
-    [SerializeField] UnityEngine.UI.Button stream;
+    [SerializeField] UnityEngine.UI.Button asyncsum = null;
+    [SerializeField] UnityEngine.UI.Button stream = null;
 
     // Use this for initialization
     async void Start()
@@ -23,7 +23,7 @@ public class NewBehaviourScript : MonoBehaviour
         Debug.Log($"grpc start");
         MagicOnionClientRegistry<Sandbox.ConsoleServer.IMyFirstService>.Register((x, y) => new Sandbox.ConsoleServer.IMyFirstServiceClient(x, y));
         var channel = new Channel("127.0.0.1", 50051, ChannelCredentials.Insecure);
-        // await channel.WaitForStateChangedAsync(ChannelState.Shutdown);
+        await channel.WaitForStateChangedAsync(ChannelState.Shutdown);
         var client = MagicOnionClient.Create<Sandbox.ConsoleServer.IMyFirstService>(channel);
 
 
